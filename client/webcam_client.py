@@ -1366,7 +1366,7 @@ def main() -> int:
             pass
     app = QtWidgets.QApplication(sys.argv)
     app.setApplicationName("PocketLens")
-    app.setDesktopFileName("webcam-adb")
+    app.setDesktopFileName("pocketlens")
     app.setQuitOnLastWindowClosed(False)
     app.setStyle("Fusion")
     pal = app.palette()

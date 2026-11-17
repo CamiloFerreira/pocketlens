@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.1] - 2026-11-17
+
+### Linux
+- Nuevo paquete **.deb** (`pocketlens_2.1.1_amd64.deb`): instala el cliente en el menú de aplicaciones,
+  los comandos `pocketlens` y `pocketlens-cli`, y deja configurada la cámara virtual «Android Cam»
+  para que se cargue al arrancar (ya no pide contraseña al conectar).
+- Las instalaciones desde .deb se actualizan descargando el nuevo paquete (pide contraseña una vez).
+
+### Android
+- Las notas de la actualización se muestran como texto limpio.
+- La comprobación de actualizaciones ignora cachés.
+
 ## [2.1.0] - 2026-11-17
 
 Primera versión pública de **PocketLens**.

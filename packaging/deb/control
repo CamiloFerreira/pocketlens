@@ -1,0 +1,19 @@
+Package: pocketlens
+Version: @VERSION@
+Section: video
+Priority: optional
+Architecture: amd64
+Installed-Size: @SIZE@
+Depends: adb | android-tools-adb, v4l2loopback-dkms, libgl1, libegl1, libfontconfig1, libxkbcommon0, libdbus-1-3, libxcb-cursor0, policykit-1 | pkexec
+Recommends: pipewire-bin, v4l-utils
+Suggests: ffmpeg, python3
+Maintainer: PocketLens <noreply@github.com>
+Homepage: https://github.com/CamiloFerreira/pocketlens
+Description: Android phone as webcam and microphone
+ PocketLens turns an Android phone running the PocketLens app into a
+ virtual webcam (v4l2loopback, "Android Cam") and microphone (PipeWire,
+ "Android Mic") over USB (adb) or Wi-Fi.
+ .
+ Includes the desktop client (pocketlens) and a headless command line
+ tool (pocketlens-cli, needs ffmpeg). The phone app (APK) is bundled and
+ can be installed over USB from the client.

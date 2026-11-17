@@ -15,8 +15,16 @@ USB o Wi-Fi · H.264 por hardware · baja latencia · se actualiza solo</p>
 | Archivo | Para |
 |---|---|
 | `PocketLens-X.Y.Z.apk` | Teléfono Android 7.0+ |
-| `PocketLens-linux-x86_64` | Linux (binario único; `chmod +x` y ejecutar) |
+| `pocketlens_X.Y.Z_amd64.deb` | Ubuntu / Debian (recomendado en Linux) |
+| `PocketLens-linux-x86_64` | Otras distros Linux (binario único; `chmod +x` y ejecutar) |
 | `PocketLens-windows-x64.exe` | Windows 10/11 |
+
+Instalar en Ubuntu/Debian:
+```bash
+sudo apt install ./pocketlens_X.Y.Z_amd64.deb
+```
+Queda en el menú como **PocketLens** (o `pocketlens` en la terminal; `pocketlens-cli` sin interfaz) y la cámara
+virtual «Android Cam» se carga sola al arrancar.
 
 Las apps buscan nuevas versiones solas:
 - **Android:** aviso «Actualizar a vX» en la barra superior (o *Ajustes → Buscar actualizaciones*). Descarga e instala; Android pide confirmar.
@@ -71,6 +79,7 @@ Requisitos: `adb`, `ffmpeg`, `v4l2-utils`, `python3`, `v4l2loopback-dkms`, PipeW
 ./build.sh                  # APK sin Gradle (Android SDK build-tools + JDK)
 client/run.sh               # cliente desde el código (crea .venv)
 client/build-linux.sh       # binario Linux
+packaging/build-deb.sh      # paquete .deb (usa el binario anterior)
 client\build-windows.bat    # .exe Windows
 ```
 

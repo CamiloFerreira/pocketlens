@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+if [ "$1" = "configure" ]; then
+    # Load the virtual camera now (on next boots modules-load.d does it).
+    if ! grep -q '^v4l2loopback ' /proc/modules 2>/dev/null; then
+        modprobe v4l2loopback 2>/dev/null || echo "PocketLens: v4l2loopback se cargará al reiniciar o al conectar." >&2
+    fi
+    command -v update-desktop-database >/dev/null && update-desktop-database -q /usr/share/applications || true
+    command -v gtk-update-icon-cache >/dev/null && gtk-update-icon-cache -q -f /usr/share/icons/hicolor || true
+fi
+exit 0

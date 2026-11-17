@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=PocketLens
+GenericName=Webcam virtual
+Comment=Tu teléfono como webcam y micrófono
+Exec=pocketlens
+Icon=pocketlens
+Terminal=false
+Categories=AudioVideo;Video;Utility;
+Keywords=webcam;camera;android;phone;v4l2loopback;
+StartupWMClass=pocketlens

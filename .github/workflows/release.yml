@@ -33,8 +33,17 @@ jobs:
           pyinstaller --noconfirm --onefile --windowed --name PocketLens-linux-x86_64 \
             --icon assets/icon.ico --add-data "assets:assets" --add-data "../VERSION:." --add-data "../REPO:." \
             --exclude-module sounddevice webcam_client.py
+      - name: Build .deb
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p apk && gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p '*.apk' -D apk || true
+          APK=$(ls apk/*.apk 2>/dev/null | head -1 || true)
+          packaging/build-deb.sh --binary client/dist/PocketLens-linux-x86_64 ${APK:+--apk "$APK"} --out out
+          cp client/dist/PocketLens-linux-x86_64 out/
+          dpkg-deb --info out/*.deb
       - uses: actions/upload-artifact@v4
-        with: { name: linux, path: client/dist/PocketLens-linux-x86_64 }
+        with: { name: linux, path: out/* }
 
   windows:
     runs-on: windows-latest

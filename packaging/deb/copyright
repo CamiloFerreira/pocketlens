@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: PocketLens
+Source: https://github.com/CamiloFerreira/pocketlens
+
+Files: *
+Copyright: PocketLens contributors
+License: none
+ No license has been granted yet; all rights reserved by the authors.

@@ -584,14 +584,16 @@ def latest_release() -> dict | None:
 
 
 def pick_asset(assets: dict, kind: str) -> str | None:
-    """kind: 'apk' | 'self'"""
+    """kind: 'apk' | 'self' (binary for this OS) | 'deb'"""
     for name, url in assets.items():
         n = name.lower()
         if kind == "apk" and n.endswith(".apk"):
             return url
+        if kind == "deb" and n.endswith("_amd64.deb"):
+            return url
         if kind == "self" and IS_WIN and n.endswith(".exe"):
             return url
-        if kind == "self" and IS_LINUX and "linux" in n and not n.endswith((".tar.gz", ".zip", ".sha256")):
+        if kind == "self" and IS_LINUX and "linux" in n and not n.endswith((".tar.gz", ".zip", ".sha256", ".deb")):
             return url
     return None
 
@@ -621,12 +623,40 @@ def source_checkout() -> Path | None:
     return root if (root / ".git").exists() else None
 
 
+def install_mode() -> str:
+    """'deb' (installed package in /opt/pocketlens), 'binary' (standalone), or 'source'."""
+    if not is_frozen():
+        return "source"
+    exe = Path(sys.executable).resolve()
+    if IS_LINUX and str(exe).startswith("/opt/pocketlens/") and not os.access(exe.parent, os.W_OK):
+        return "deb"
+    return "binary"
+
+
 def can_self_update(assets: dict) -> bool:
-    return (is_frozen() and pick_asset(assets, "self") is not None) or (not is_frozen() and source_checkout() is not None)
+    mode = install_mode()
+    if mode == "deb":
+        return pick_asset(assets, "deb") is not None and shutil.which("pkexec") is not None
+    if mode == "binary":
+        return pick_asset(assets, "self") is not None
+    return source_checkout() is not None
 
 
 def self_update(assets: dict, progress=None) -> None:
     """Replace this program with the latest release. Call restart() afterwards."""
+    if install_mode() == "deb":
+        import tempfile
+        url = pick_asset(assets, "deb")
+        if not url:
+            raise RuntimeError("El release no incluye paquete .deb.")
+        deb = Path(tempfile.gettempdir()) / url.rsplit("/", 1)[-1]
+        download(url, deb, progress)
+        deb.chmod(0o644)
+        r = subprocess.run(["pkexec", "apt-get", "install", "-y", "--allow-downgrades", str(deb)],
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            raise RuntimeError("No se pudo instalar el paquete:\n" + (r.stderr or r.stdout).strip()[-600:])
+        return
     if is_frozen():
         url = pick_asset(assets, "self")
         if not url:
