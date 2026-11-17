@@ -79,8 +79,8 @@ client\build-windows.bat    # .exe Windows
 1. Añade la sección `## [X.Y.Z]` en [CHANGELOG.md](CHANGELOG.md).
 2. `./scripts/release.sh X.Y.Z`
 
-GitHub Actions compila el APK firmado y los binarios de Linux y Windows, y crea el release con
-las notas del changelog. Las apps instaladas lo detectan y ofrecen actualizar.
+El script compila y firma el APK en tu máquina, crea el release con las notas del changelog y
+GitHub Actions le añade los binarios de Linux y Windows. Las apps instaladas lo detectan y ofrecen actualizar.
 
-La firma del APK usa los secretos `KEYSTORE_B64` y `KEYSTORE_PASS` del repositorio. Todas las versiones
-deben firmarse con la misma clave o Android rechazará la actualización.
+La clave de firma (`~/.android/pocketlens-release.jks` + `.pass`) **solo vive en tu PC**: haz copia de
+seguridad. Todas las versiones deben firmarse con la misma clave o Android rechazará la actualización.
