@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.2.0] - 2026-11-17
+
+### Escritorio
+- **Efectos de fondo** al estilo Teams/Meet, con detección de personas por IA que corre en el PC (MediaPipe):
+  - Galería de fondos: desenfoque, 8 fondos incluidos (Estudio, Ventanal, Atardecer, Bokeh, Aurora, Océano,
+    Grafito, PocketLens) y tus propias imágenes (botón «+»; clic derecho para quitarlas).
+  - Intensidad del desenfoque ajustable (1–100 %).
+  - Precisión «Alta»: segunda pasada ampliada sobre la persona, descarta objetos sueltos y ajusta los bordes
+    a la imagen real (guided filter). «Rápida» para PCs modestos.
+  - La segmentación corre en un hilo aparte: 30 fps a 1080p.
+  - Se activa o desactiva al vuelo desde la tarjeta «Fondo» o el botón de la barra flotante; la vista previa
+    indica si hay una persona en cuadro. Funciona en cualquier app de videollamadas vía la cámara virtual.
+  - Para usar tu imagen: botón «Usar mi imagen como fondo…», arrastrarla a la ventana o el menú de fondos
+    de la barra flotante.
+- El **micrófono** se puede apagar y encender mientras estás conectado (antes había que desconectar).
+- Corregido: los interruptores (Espejo, Micrófono, Efecto) cambiaban el estado pero no su dibujo.
+- La tarjeta «Fondo» va arriba, junto a «Dispositivo».
+
+### Linux
+- Si el cliente se cierra de golpe, la cámara virtual ya no queda bloqueada («is not a video output
+  device») y el micrófono virtual «Android Mic» desaparece junto con la app.
+- Corregido: el cliente instalado (.deb / binario) no detectaba el teléfono por USB. El `adb` del
+  sistema heredaba las librerías empaquetadas del binario y no arrancaba (`GLIBCXX_3.4.31 not found`).
+
 ## [2.1.1] - 2026-11-17
 
 ### Linux

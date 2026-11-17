@@ -44,6 +44,10 @@ ICONS = {
     "exposure": "M20,8.69V4h-4.69L12,0.69 8.69,4H4v4.69L0.69,12 4,15.31V20h4.69L12,23.31 15.31,20H20v-4.69L23.31,12 20,8.69zM12,18c-3.31,0 -6,-2.69 -6,-6s2.69,-6 6,-6 6,2.69 6,6 -2.69,6 -6,6zM12,8c-2.21,0 -4,1.79 -4,4s1.79,4 4,4 4,-1.79 4,-4 -1.79,-4 -4,-4z",
     "refresh": "M17.65,6.35C16.2,4.9 14.21,4 12,4c-4.42,0 -7.99,3.58 -7.99,8s3.57,8 7.99,8c3.73,0 6.84,-2.55 7.73,-6h-2.08c-0.82,2.33 -3.04,4 -5.65,4 -3.31,0 -6,-2.69 -6,-6s2.69,-6 6,-6c1.66,0 3.14,0.69 4.22,1.78L13,11h7V4l-2.35,2.35z",
     "speaker": "M3,9v6h4l5,5V4L7,9H3zM16.5,12c0,-1.77 -1.02,-3.29 -2.5,-4.03v8.05c1.48,-0.73 2.5,-2.25 2.5,-4.02zM14,3.23v2.06c2.89,0.86 5,3.54 5,6.71s-2.11,5.85 -5,6.71v2.06c4.01,-0.91 7,-4.49 7,-8.77s-2.99,-7.86 -7,-8.77z",
+    "blur": "M6,13c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM6,17c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM6,9c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM6,5c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM10,12.5c-0.83,0 -1.5,0.67 -1.5,1.5s0.67,1.5 1.5,1.5 1.5,-0.67 1.5,-1.5 -0.67,-1.5 -1.5,-1.5zM10,8.5c-0.83,0 -1.5,0.67 -1.5,1.5s0.67,1.5 1.5,1.5 1.5,-0.67 1.5,-1.5 -0.67,-1.5 -1.5,-1.5zM10,17c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM10,7c0.55,0 1,-0.45 1,-1s-0.45,-1 -1,-1 -1,0.45 -1,1 0.45,1 1,1zM14,12.5c-0.83,0 -1.5,0.67 -1.5,1.5s0.67,1.5 1.5,1.5 1.5,-0.67 1.5,-1.5 -0.67,-1.5 -1.5,-1.5zM14,8.5c-0.83,0 -1.5,0.67 -1.5,1.5s0.67,1.5 1.5,1.5 1.5,-0.67 1.5,-1.5 -0.67,-1.5 -1.5,-1.5zM14,17c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM14,7c0.55,0 1,-0.45 1,-1s-0.45,-1 -1,-1 -1,0.45 -1,1 0.45,1 1,1zM18,13c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM18,17c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM18,9c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM18,5c-0.55,0 -1,0.45 -1,1s0.45,1 1,1 1,-0.45 1,-1 -0.45,-1 -1,-1zM3,9.5c-0.28,0 -0.5,0.22 -0.5,0.5s0.22,0.5 0.5,0.5 0.5,-0.22 0.5,-0.5 -0.22,-0.5 -0.5,-0.5zM3,13.5c-0.28,0 -0.5,0.22 -0.5,0.5s0.22,0.5 0.5,0.5 0.5,-0.22 0.5,-0.5 -0.22,-0.5 -0.5,-0.5zM21,9.5c-0.28,0 -0.5,0.22 -0.5,0.5s0.22,0.5 0.5,0.5 0.5,-0.22 0.5,-0.5 -0.22,-0.5 -0.5,-0.5zM21,13.5c-0.28,0 -0.5,0.22 -0.5,0.5s0.22,0.5 0.5,0.5 0.5,-0.22 0.5,-0.5 -0.22,-0.5 -0.5,-0.5z",
+    "person": "M12,12c2.21,0 4,-1.79 4,-4s-1.79,-4 -4,-4 -4,1.79 -4,4 1.79,4 4,4zM12,14c-2.67,0 -8,1.34 -8,4v2h16v-2c0,-2.66 -5.33,-4 -8,-4z",
+    "image": "M21,19V5c0,-1.1 -0.9,-2 -2,-2H5c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2zM8.5,13.5l2.5,3.01L14.5,12l4.5,6H5l3.5,-4.5z",
+    "add": "M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z",
     "power": "M13,3h-2v10h2V3zM17.83,5.17l-1.42,1.42C17.99,7.86 19,9.81 19,12c0,3.87 -3.13,7 -7,7s-7,-3.13 -7,-7c0,-2.19 1.01,-4.14 2.58,-5.42L6.17,5.17C4.23,6.82 3,9.26 3,12c0,4.97 4.03,9 9,9s9,-4.03 9,-9c0,-2.74 -1.23,-5.18 -3.17,-6.83z",
 }
 
@@ -185,17 +189,17 @@ QMenu::item:selected {{ background: rgba(34,197,94,0.18); }}
 # =============================================================================
 
 class Toggle(QtWidgets.QAbstractButton):
-    """iOS/Material-like switch."""
+    """iOS/Material-like switch. Always painted from isChecked(); the slide animation is cosmetic."""
 
     def __init__(self, checked: bool = False, parent=None):
         super().__init__(parent)
+        self._pos = 1.0 if checked else 0.0
+        self._anim = QtCore.QPropertyAnimation(self, b"knob", self)
+        self._anim.setDuration(140)
         self.setCheckable(True)
         self.setChecked(checked)
         self.setCursor(QtCore.Qt.PointingHandCursor)
         self.setFixedSize(40, 22)
-        self._pos = 1.0 if checked else 0.0
-        self._anim = QtCore.QPropertyAnimation(self, b"knob", self)
-        self._anim.setDuration(140)
         self.toggled.connect(self._animate)
 
     def _animate(self, on: bool) -> None:
@@ -203,6 +207,9 @@ class Toggle(QtWidgets.QAbstractButton):
         self._anim.setStartValue(self._pos)
         self._anim.setEndValue(1.0 if on else 0.0)
         self._anim.start()
+        self._anim_t0 = time.monotonic()
+        self.update()
+        QtCore.QTimer.singleShot(250, self.update)  # safety repaint if the animation never ticks
 
     def _get(self) -> float:
         return self._pos
@@ -214,20 +221,28 @@ class Toggle(QtWidgets.QAbstractButton):
     knob = QtCore.Property(float, _get, _set)  # NOT "pos": that is QWidget.pos (widget position)
 
     def paintEvent(self, _):
+        target = 1.0 if self.isChecked() else 0.0
+        running = self._anim.state() == QtCore.QAbstractAnimation.Running
+        if running and time.monotonic() - getattr(self, "_anim_t0", 0) > 0.2:
+            self._anim.stop()  # stalled animation: never leave the knob in the wrong place
+            running = False
+        if not running:
+            self._pos = target  # also covers setChecked() with blocked signals (synced toggles)
+        t = self._pos
         p = QtGui.QPainter(self)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
         off, on = QtGui.QColor("#3a414b"), QtGui.QColor(C["accent"])
         track = QtGui.QColor(
-            int(off.red() + (on.red() - off.red()) * self._pos),
-            int(off.green() + (on.green() - off.green()) * self._pos),
-            int(off.blue() + (on.blue() - off.blue()) * self._pos))
+            int(off.red() + (on.red() - off.red()) * t),
+            int(off.green() + (on.green() - off.green()) * t),
+            int(off.blue() + (on.blue() - off.blue()) * t))
         if not self.isEnabled():
             track.setAlpha(110)
         p.setPen(QtCore.Qt.NoPen)
         p.setBrush(track)
         p.drawRoundedRect(QtCore.QRectF(0, 0, 40, 22), 11, 11)
         p.setBrush(QtGui.QColor("#ffffff" if self.isEnabled() else "#9aa1aa"))
-        x = 3 + self._pos * 18
+        x = 3 + t * 18
         p.drawEllipse(QtCore.QRectF(x, 3, 16, 16))
 
     def sizeHint(self):
@@ -293,6 +308,219 @@ class Card(QtWidgets.QFrame):
         self.lay.addLayout(r)
 
 
+def user_backgrounds_dir() -> Path:
+    return E.config_path().parent / "backgrounds"
+
+
+def builtin_backgrounds() -> list[Path]:
+    d = E._bundled_file("assets/backgrounds/01-estudio.jpg")
+    return sorted(d.parent.glob("*.jpg")) if d else []
+
+
+BG_NAMES = {"01-estudio": "Estudio", "02-ventanal": "Ventanal", "03-atardecer": "Atardecer", "04-bokeh": "Bokeh",
+            "05-aurora": "Aurora", "06-oceano": "Océano", "07-grafito": "Grafito", "08-pocketlens": "PocketLens"}
+
+
+class _BigIconMenuStyle(QtWidgets.QProxyStyle):
+    """Larger icons in the background picker menu (thumbnails)."""
+    def pixelMetric(self, metric, opt=None, widget=None):
+        if metric == QtWidgets.QStyle.PM_SmallIconSize:
+            return 32
+        return super().pixelMetric(metric, opt, widget)
+
+
+class BgTile(QtWidgets.QAbstractButton):
+    """Thumbnail tile of the background gallery (Teams-style)."""
+    TW, TH = 72, 44
+
+    def __init__(self, value: str, tip: str, pixmap: QtGui.QPixmap | None = None, icon: str | None = None,
+                 removable: bool = False):
+        super().__init__()
+        self.value, self.pix, self.icon_name, self.removable = value, pixmap, icon, removable
+        self.setCheckable(True)
+        self.setToolTip(tip)
+        self.setCursor(QtCore.Qt.PointingHandCursor)
+        self.setFixedSize(self.TW, self.TH)
+
+    def paintEvent(self, _):
+        p = QtGui.QPainter(self)
+        p.setRenderHints(QtGui.QPainter.Antialiasing | QtGui.QPainter.SmoothPixmapTransform)
+        r = QtCore.QRectF(self.rect()).adjusted(1.5, 1.5, -1.5, -1.5)
+        path = QtGui.QPainterPath()
+        path.addRoundedRect(r, 8, 8)
+        p.fillPath(path, QtGui.QColor(C["card2"]))
+        if self.pix:
+            p.save()
+            p.setClipPath(path)
+            p.drawPixmap(r.toRect(), self.pix)
+            p.restore()
+        if self.icon_name:
+            col = C["accent"] if self.isChecked() else (C["text"] if self.underMouse() else C["text2"])
+            if self.pix:  # icon over thumbnail: darken for contrast
+                p.fillPath(path, QtGui.QColor(0, 0, 0, 90))
+                col = "#ffffff"
+            p.drawPixmap(int(r.center().x() - 10), int(r.center().y() - 10), icon_pixmap(self.icon_name, col, 20))
+        if not self.isEnabled():
+            p.fillPath(path, QtGui.QColor(0, 0, 0, 120))
+        if self.isChecked():
+            p.setPen(QtGui.QPen(QtGui.QColor(C["accent"]), 2.5))
+        elif self.underMouse():
+            p.setPen(QtGui.QPen(QtGui.QColor(C["text2"]), 1.5))
+        else:
+            p.setPen(QtGui.QPen(QtGui.QColor(C["line"]), 1))
+        p.setBrush(QtCore.Qt.NoBrush)
+        p.drawPath(path)
+
+    def enterEvent(self, e):
+        self.update()
+        super().enterEvent(e)
+
+    def leaveEvent(self, e):
+        self.update()
+        super().leaveEvent(e)
+
+
+class BgGallery(QtWidgets.QWidget):
+    """Grid: blur, built-in backgrounds, user images and an "add" tile. value() is "blur" or an image path."""
+    changed = QtCore.Signal(str)
+    COLS = 4
+
+    def __init__(self, current: str = "blur"):
+        super().__init__()
+        self._value = current or "blur"
+        self.grid = QtWidgets.QGridLayout(self)
+        self.grid.setContentsMargins(0, 2, 0, 2)
+        self.grid.setSpacing(6)
+        self.grid.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
+        self.group = QtWidgets.QButtonGroup(self)
+        self.group.setExclusive(True)
+        self._thumbs: dict[str, QtGui.QPixmap] = {}
+        self.rebuild()
+
+    def value(self) -> str:
+        return self._value
+
+    def _thumb(self, path: Path) -> QtGui.QPixmap | None:
+        key = str(path)
+        if key not in self._thumbs:
+            rd = QtGui.QImageReader(key)
+            rd.setAutoTransform(True)
+            sz = rd.size()
+            if sz.isValid():
+                s = max(BgTile.TW * 2 / sz.width(), BgTile.TH * 2 / sz.height())
+                rd.setScaledSize(QtCore.QSize(max(1, int(sz.width() * s)), max(1, int(sz.height() * s))))
+            img = rd.read()
+            if img.isNull():
+                return None
+            img = img.copy(QtCore.QRect((img.width() - BgTile.TW * 2) // 2, (img.height() - BgTile.TH * 2) // 2,
+                                        BgTile.TW * 2, BgTile.TH * 2))
+            self._thumbs[key] = QtGui.QPixmap.fromImage(img)
+        return self._thumbs[key]
+
+    def rebuild(self) -> None:
+        while self.grid.count():
+            w = self.grid.takeAt(0).widget()
+            if w:
+                if isinstance(w, QtWidgets.QAbstractButton):
+                    self.group.removeButton(w)
+                w.hide()
+                w.setParent(None)
+                w.deleteLater()
+        tiles = [BgTile("blur", "Desenfocar fondo", icon="blur")]
+        for f in builtin_backgrounds():
+            tiles.append(BgTile(str(f), BG_NAMES.get(f.stem, f.stem), self._thumb(f)))
+        d = user_backgrounds_dir()
+        user = sorted(p for p in d.glob("*") if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".bmp")) \
+            if d.is_dir() else []
+        for f in user:
+            pm = self._thumb(f)
+            if pm:
+                tiles.append(BgTile(str(f), f"Tu imagen: {f.name}", pm, removable=True))
+        known = {t.value for t in tiles}
+        if self._value not in known:
+            if Path(self._value).is_file():  # image chosen outside the gallery folder (old config)
+                tiles.append(BgTile(self._value, Path(self._value).name, self._thumb(Path(self._value))))
+            else:
+                self._value = "blur"
+        add = QtWidgets.QToolButton(objectName="tool")
+        add.setFixedSize(BgTile.TW, BgTile.TH)
+        add.setIcon(make_icon("add", C["text2"]))
+        add.setIconSize(QtCore.QSize(20, 20))
+        add.setToolTip("Agregar imagen de fondo…")
+        add.setCursor(QtCore.Qt.PointingHandCursor)
+        add.setStyleSheet(f"QToolButton {{ border: 1px dashed {C['text3']}; border-radius: 8px; background: transparent; }}"
+                          f"QToolButton:hover {{ border-color: {C['accent']}; }}")
+        add.clicked.connect(self._add)
+        for i, t in enumerate(tiles):
+            self.group.addButton(t)
+            t.setChecked(t.value == self._value)
+            t.clicked.connect(lambda _=False, v=t.value: self._select(v))
+            if t.removable:
+                t.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+                t.customContextMenuRequested.connect(lambda _pos, v=t.value: self._remove(v))
+            self.grid.addWidget(t, i // self.COLS, i % self.COLS)
+        n = len(tiles)
+        self.grid.addWidget(add, n // self.COLS, n % self.COLS)
+
+    def _select(self, v: str) -> None:
+        self._value = v
+        self.changed.emit(v)
+
+    def select(self, v: str) -> None:
+        """Programmatic selection (e.g. from the toolbar menu)."""
+        for t in self.group.buttons():
+            if getattr(t, "value", None) == v:
+                t.setChecked(True)
+        self._select(v)
+
+    def _add(self) -> None:
+        start = QtCore.QStandardPaths.writableLocation(QtCore.QStandardPaths.PicturesLocation) or str(Path.home())
+        path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Elegir imagen de fondo", start,
+                                                        "Imágenes (*.png *.jpg *.jpeg *.bmp *.webp)")
+        if path:
+            self.add_image(path)
+
+    def add_image(self, path: str) -> None:
+        """Copy an image into the user's backgrounds folder and select it."""
+        src = Path(path)
+        if QtGui.QImageReader(str(src)).size().isEmpty():
+            QtWidgets.QMessageBox.warning(self, "PocketLens", "No se pudo leer la imagen.")
+            return
+        d = user_backgrounds_dir()
+        d.mkdir(parents=True, exist_ok=True)
+        dst = d / src.name
+        k = 1
+        while dst.exists():
+            dst = d / f"{src.stem}-{k}{src.suffix}"
+            k += 1
+        try:
+            import shutil
+            shutil.copy2(src, dst)
+        except OSError as e:
+            QtWidgets.QMessageBox.warning(self, "PocketLens", f"No se pudo copiar la imagen:\n{e}")
+            return
+        self._value = str(dst)
+        self.rebuild()
+        self.changed.emit(self._value)
+
+    def _remove(self, v: str) -> None:
+        m = QtWidgets.QMenu(self)
+        act = m.addAction("Quitar este fondo")
+        if m.exec(QtGui.QCursor.pos()) != act:
+            return
+        try:
+            Path(v).unlink()
+        except OSError:
+            pass
+        self._thumbs.pop(v, None)
+        was = self._value == v
+        if was:
+            self._value = "blur"
+        self.rebuild()
+        if was:
+            self.changed.emit(self._value)
+
+
 class DeviceItem(QtWidgets.QWidget):
     def __init__(self, icon: str, title: str, sub: str, dot: str | None):
         super().__init__()
@@ -340,6 +568,7 @@ class Preview(QtWidgets.QWidget):
         self.img: QtGui.QImage | None = None
         self.live = False
         self.stats = ""
+        self.person: bool | None = None  # background effect on: person detected?
         self.empty_title = "Sin señal"
         self.empty_sub = "Elige tu teléfono y pulsa Conectar"
         self.logo = svg_pixmap(LOGO_SVG, 72)
@@ -397,6 +626,13 @@ class Preview(QtWidgets.QWidget):
             if self.live:
                 self._pill(p, r.x() + 16, r.y() + 16, "EN VIVO", QtGui.QColor(239, 68, 68, 220), QtGui.QColor("white"),
                            dot=QtGui.QColor("white"))
+            if self.person is not None:
+                if self.person:
+                    self._pill(p, r.x() + 16, r.bottom() - 40, "Persona detectada", QtGui.QColor(0, 0, 0, 150),
+                               QtGui.QColor(C["text"]), dot=QtGui.QColor(C["accent"]))
+                else:
+                    self._pill(p, r.x() + 16, r.bottom() - 40, "Sin persona en cuadro", QtGui.QColor(0, 0, 0, 150),
+                               QtGui.QColor(C["text"]), dot=QtGui.QColor(C["warn"]))
             if self.stats:
                 self._pill(p, r.right() - 16, r.y() + 16, self.stats, QtGui.QColor(0, 0, 0, 150),
                            QtGui.QColor(C["text"]), right=True)
@@ -427,6 +663,27 @@ class Preview(QtWidgets.QWidget):
 RES_OPTS = [("480p", "640x480"), ("720p", "1280x720"), ("1080p", "1920x1080")]
 FPS_OPTS = [("15", "15"), ("24", "24"), ("30", "30"), ("60", "60")]
 QUAL_OPTS = [("Baja", "2"), ("Media", "6"), ("Alta", "10"), ("Máx.", "16")]
+def bgfilter_available() -> tuple[bool, str]:
+    """Cheap check (no heavy import): AI runtime installed and model bundled."""
+    import importlib.util
+    for mod in ("mediapipe", "cv2"):
+        try:
+            if importlib.util.find_spec(mod) is None:
+                return False, f"falta el módulo «{mod}» (pip install mediapipe)"
+        except (ImportError, ValueError):
+            return False, f"falta el módulo «{mod}»"
+    if not E._bundled_file("assets/models/selfie_segmenter.tflite"):
+        return False, "no se encontró el modelo de segmentación"
+    return True, ""
+
+
+def _preload_bgfilter() -> None:
+    try:
+        import bgfilter  # noqa: F401
+    except Exception:  # noqa: BLE001
+        pass
+
+
 ROT_OPTS = [("0°", "0"), ("90°", "90"), ("180°", "180"), ("270°", "270")]
 
 
@@ -446,6 +703,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowIcon(app_icon())
         self.resize(1280, 780)
         self.setMinimumSize(980, 640)
+        self.setAcceptDrops(True)
         self.cfg = self._load_cfg()
         self.adb_path = E.find_adb()
         self.adb = E.Adb(self.adb_path) if self.adb_path else None
@@ -499,6 +757,8 @@ class MainWindow(QtWidgets.QMainWindow):
             "camera": self.seg_cam.value(), "rotate": self.seg_rot.value(), "mirror": self.tg_mirror.isChecked(),
             "audio": self.tg_audio.isChecked(), "audio_out": self.cb_aout.currentText(),
             "vdev": self.cb_vdev.currentText() if E.IS_LINUX else "",
+            "bg_on": self.tg_bg.isChecked(), "bg_sel": self.gallery.value(), "bg_strength": self.sl_blur.value(),
+            "bg_precise": self.seg_prec.value() == "precise",
         }
         try:
             p = E.config_path()
@@ -620,6 +880,60 @@ class MainWindow(QtWidgets.QMainWindow):
         card.lay.addWidget(self.banner)
         lay.addWidget(card)
 
+        # --- background card (Teams/Meet-style effects)
+        card = Card("Fondo", "blur")
+        sel = c.get("bg_sel") or ("blur" if c.get("bg_mode", "blur") != "image" else (c.get("bg_image") or "blur"))
+        self.tg_bg = Toggle(bool(c.get("bg_on", False)))
+        self.tg_bg.toggled.connect(lambda on: self.bt_bg.setChecked(on))
+        card.row("Efecto", self.tg_bg, stretch=False)
+        self.gallery = BgGallery(sel)
+        self.gallery.changed.connect(self._bg_selection_changed)
+        card.lay.addWidget(self.gallery)
+        self.bt_bg_img = QtWidgets.QPushButton("  Usar mi imagen como fondo…", objectName="ghost")
+        self.bt_bg_img.setIcon(make_icon("image", C["text2"], size=16))
+        self.bt_bg_img.setCursor(QtCore.Qt.PointingHandCursor)
+        self.bt_bg_img.setToolTip("Elige una foto de tu PC (también puedes arrastrarla a la ventana)")
+        self.bt_bg_img.clicked.connect(self.gallery._add)
+        card.lay.addWidget(self.bt_bg_img)
+        sr = QtWidgets.QHBoxLayout()
+        sr.setSpacing(8)
+        self.sl_blur = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.sl_blur.setRange(1, 100)
+        self.sl_blur.setValue(int(c.get("bg_strength", 50)))
+        self.lb_blur = QtWidgets.QLabel(f"{self.sl_blur.value()}%", objectName="toolVal")
+        self.lb_blur.setFixedWidth(36)
+        self.sl_blur.valueChanged.connect(self._bg_strength_changed)
+        self.sl_blur.sliderReleased.connect(self._save_cfg)
+        sr.addWidget(self.sl_blur, 1)
+        sr.addWidget(self.lb_blur)
+        self.blur_row = QtWidgets.QWidget()
+        self.blur_row.setLayout(sr)
+        sr.setContentsMargins(0, 0, 0, 0)
+        card.row("Intensidad", self.blur_row)
+        self.seg_prec = Segmented([("Rápida", "fast"), ("Alta", "precise")],
+                                  "precise" if c.get("bg_precise", True) else "fast")
+        self.seg_prec.changed.connect(lambda _v: self._apply_bg())
+        card.row("Precisión", self.seg_prec)
+        hint = QtWidgets.QLabel("Detecta a la persona con IA en este PC y desenfoca o reemplaza el resto. "
+                                "Se aplica a la cámara virtual (Meet, Teams, Zoom…). "
+                                "Arrastra una imagen a la ventana para usarla de fondo; "
+                                "clic derecho en un fondo propio para quitarlo.", objectName="hint")
+        hint.setWordWrap(True)
+        card.lay.addWidget(hint)
+        ok, why = bgfilter_available()
+        if not ok:
+            for w_ in (self.tg_bg, self.gallery, self.bt_bg_img, self.sl_blur, self.seg_prec):
+                w_.setEnabled(False)
+            self.tg_bg.blockSignals(True)
+            self.tg_bg.setChecked(False)
+            self.tg_bg.blockSignals(False)
+            hint.setText("Efectos de fondo no disponibles: " + why)
+        else:  # warm up the AI runtime in the background so enabling the effect doesn't stall the video
+            threading.Thread(target=_preload_bgfilter, daemon=True, name="bg-preload").start()
+        self._bg_ok = ok
+        self.blur_row.setEnabled(ok and self.gallery.value() == "blur")
+        lay.addWidget(card)
+
         # --- video card
         card = Card("Vídeo", "videocam")
         self.seg_cam = Segmented([("Trasera", "back"), ("Frontal", "front")], c.get("camera", "back"))
@@ -648,6 +962,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # --- audio card
         card = Card("Audio", "mic")
         self.tg_audio = Toggle(bool(c.get("audio", True)))
+        self.tg_audio.toggled.connect(self._audio_toggled)
         card.row("Micrófono", self.tg_audio, stretch=False)
         self.cb_aout = QtWidgets.QComboBox()
         if E.pipewire_available():
@@ -689,7 +1004,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.settings_widgets = [self.mode, self.list_usb, self.bt_refresh, self.list_wifi, self.ed_ip, self.seg_cam,
                                  self.seg_res, self.seg_fps, self.seg_q, self.seg_rot, self.cb_vdev,
-                                 self.tg_audio, self.cb_aout]
+                                 self.cb_aout]
         self._mode_changed()
         return side
 
@@ -737,11 +1052,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.bt_mirror = ToolButton("flip", "Espejo (salida)", True, C["accent"])
         self.bt_mirror.setChecked(self.tg_mirror.isChecked())
         self.bt_mirror.toggled.connect(self._mirror_changed)
+        self.bt_bg = ToolButton("blur", "Efecto de fondo (detección de personas)", True, C["accent"])
+        self.bt_bg.setChecked(self.tg_bg.isChecked())
+        self.bt_bg.setEnabled(self._bg_ok)
+        self.bt_bg.toggled.connect(self._bg_toggled)
+        self.bt_bg_menu = ToolButton("image", "Cambiar fondo: desenfoque, fondos o tu propia imagen")
+        self.bt_bg_menu.setEnabled(self._bg_ok)
+        self.bt_bg_menu.clicked.connect(self._bg_menu)
         self.bt_snap = ToolButton("camera", "Foto")
         self.bt_snap.clicked.connect(self._snapshot)
         self.bt_full = ToolButton("fullscreen", "Pantalla completa (F11)")
         self.bt_full.clicked.connect(self._toggle_fullscreen)
-        for b in (self.bt_mirror, self.bt_snap, self.bt_full):
+        for b in (self.bt_mirror, self.bt_bg, self.bt_bg_menu, self.bt_snap, self.bt_full):
             tl.addWidget(b)
         shadow = QtWidgets.QGraphicsDropShadowEffect(blurRadius=24, offset=QtCore.QPointF(0, 6))
         shadow.setColor(QtGui.QColor(0, 0, 0, 160))
@@ -916,6 +1238,97 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.video:
             self.video.mirror = on
 
+    # drag & drop an image anywhere on the window → background
+    @staticmethod
+    def _dropped_image(e) -> str | None:
+        md = e.mimeData()
+        if md.hasUrls():
+            for u in md.urls():
+                f = u.toLocalFile()
+                if f and Path(f).suffix.lower() in (".png", ".jpg", ".jpeg", ".bmp", ".webp"):
+                    return f
+        return None
+
+    def dragEnterEvent(self, e):
+        if self._bg_ok and self._dropped_image(e):
+            e.acceptProposedAction()
+
+    def dropEvent(self, e):
+        f = self._dropped_image(e)
+        if f and self._bg_ok:
+            e.acceptProposedAction()
+            self.gallery.add_image(f)
+
+    def _bg_menu(self) -> None:
+        """Teams-like quick picker on the floating toolbar."""
+        m = QtWidgets.QMenu(self)
+        if not hasattr(self, "_menu_style"):
+            self._menu_style = _BigIconMenuStyle("Fusion")
+        m.setStyle(self._menu_style)
+        on, cur = self.bt_bg.isChecked(), self.gallery.value()
+
+        def add(text, value, icon=None):
+            a = m.addAction(icon or QtGui.QIcon(), text)
+            a.setCheckable(True)
+            a.setChecked(on and value == cur if value else not on)
+            a.setData(value)
+            return a
+
+        add("Sin efecto", "")
+        add("Desenfocar fondo", "blur", make_icon("blur", C["text2"]))
+        m.addSeparator()
+        for t in self.gallery.group.buttons():
+            if t.value == "blur" or not t.pix:
+                continue
+            name = t.toolTip()
+            add(name, t.value, QtGui.QIcon(t.pix))
+        m.addSeparator()
+        pick = m.addAction(make_icon("add", C["accent"]), "Elegir imagen de mi PC…")
+        a = m.exec(self.bt_bg_menu.mapToGlobal(QtCore.QPoint(0, -m.sizeHint().height() - 6)))
+        if a is None:
+            return
+        if a is pick:
+            self.gallery._add()
+            return
+        v = a.data()
+        if not v:
+            self.bt_bg.setChecked(False)
+            return
+        self.gallery.select(v)
+
+    def _bg_toggled(self, on: bool) -> None:
+        self.tg_bg.blockSignals(True)
+        self.tg_bg.setChecked(on)
+        self.tg_bg.blockSignals(False)
+        self._apply_bg()
+
+    def _bg_selection_changed(self, _sel) -> None:
+        self.blur_row.setEnabled(self._bg_ok and self.gallery.value() == "blur")
+        if self._bg_ok and not self.bt_bg.isChecked():
+            self.bt_bg.setChecked(True)  # picking a background turns the effect on (like Teams)
+        else:
+            self._apply_bg()
+
+    def _bg_strength_changed(self, v: int) -> None:
+        self.lb_blur.setText(f"{v}%")
+        if self.video:
+            self.video.bg_strength = v
+        if not self.sl_blur.isSliderDown():
+            self._save_cfg()
+
+    def _apply_bg(self) -> None:
+        on = self._bg_ok and self.bt_bg.isChecked()
+        sel = self.gallery.value()
+        if self.video:
+            self.video.bg_strength = self.sl_blur.value()
+            self.video.bg_precise = self.seg_prec.value() == "precise"
+            self.video.bg_image = None if sel == "blur" else sel
+            self.video.bg_mode = ("blur" if sel == "blur" else "image") if on else None
+        if not on:
+            self.preview.person = None
+            self.preview.update()
+        self._save_cfg()
+
     def _snapshot(self) -> None:
         if not self.video or self.video.latest is None:
             return
@@ -1065,22 +1478,11 @@ class MainWindow(QtWidgets.QMainWindow):
         w, h = (int(x) for x in info["params"]["res"].split("x"))
         self.video = E.VideoWorker(self.host, w, h, int(info["params"]["fps"]), int(self.seg_rot.value()),
                                    self.bt_mirror.isChecked(), info["vdev"])
+        self._apply_bg()
         self.video.start()
         self.audio, self.audio_name = None, ""
         if self.tg_audio.isChecked():
-            try:
-                data = self.cb_aout.currentData()
-                sink = None
-                if data is None and E.pipewire_available():
-                    sink = E.PipeWireSource()
-                elif data is not None and data >= 0 and E.sd is not None:
-                    sink = E.SoundDeviceSink(data)
-                if sink:
-                    self.audio_name = sink.name
-                    self.audio = E.AudioWorker(self.host, sink)
-                    self.audio.start()
-            except Exception as e:  # noqa: BLE001
-                self.ft["msg"].setText(f"Audio desactivado: {e}")
+            self._start_audio()
         self.poller = E.StatusPoller(self.host)
         self.poller.start()
         self.busy = False
@@ -1098,6 +1500,34 @@ class MainWindow(QtWidgets.QMainWindow):
         for ic in self.ft_icons:
             ic.show()
         self.ft["msg"].setText(f"Conectado a {self.model or self.host}")
+
+    def _start_audio(self) -> None:
+        try:
+            data = self.cb_aout.currentData()
+            sink = None
+            if data is None and E.pipewire_available():
+                sink = E.PipeWireSource()
+            elif data is not None and data >= 0 and E.sd is not None:
+                sink = E.SoundDeviceSink(data)
+            if sink:
+                self.audio_name = sink.name
+                self.audio = E.AudioWorker(self.host, sink)
+                self.audio.start()
+        except Exception as e:  # noqa: BLE001
+            self.ft["msg"].setText(f"Audio desactivado: {e}")
+
+    def _audio_toggled(self, on: bool) -> None:
+        """Microphone can be switched on/off while connected (no reconnect needed)."""
+        self._save_cfg()
+        if not self.video:  # not connected: applies on next connect
+            return
+        if on and not self.audio:
+            self._start_audio()
+        elif not on and self.audio:
+            a, self.audio, self.audio_name = self.audio, None, ""
+            a.stop()
+            a.join(3)
+        self.cb_aout.setEnabled(not self.audio)
 
     def _disconnect(self) -> None:
         for wk in (self.video, self.audio):
@@ -1144,8 +1574,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self._disconnect()
             self._warn(err)
             return
+        if v.bg_error:
+            err, v.bg_error = v.bg_error, None
+            self.bt_bg.setChecked(False)
+            self._warn("No se pudo aplicar el efecto de fondo:\n\n" + err)
         if v.frame_id != self.last_frame_id and v.latest is not None:
             self.last_frame_id = v.frame_id
+            self.preview.person = v.person
             self.preview.set_frame(v.latest)
         elif not v.connected and self.preview.img is None:
             self.preview.empty_title = "Esperando vídeo…"

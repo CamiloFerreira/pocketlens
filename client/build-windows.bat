@@ -7,5 +7,6 @@ if not exist .venv\Scripts\python.exe (
 .venv\Scripts\python -m pip install -q --upgrade pip
 .venv\Scripts\python -m pip install -q -r requirements.txt pyinstaller
 .venv\Scripts\pyinstaller --noconfirm --onefile --windowed --name PocketLens-windows-x64 --icon assets\icon.ico ^
-  --add-data "assets:assets" --add-data "..\VERSION:." --add-data "..\REPO:." webcam_client.py || exit /b 1
+  --add-data "assets:assets" --add-data "..\VERSION:." --add-data "..\REPO:." ^
+  --collect-binaries mediapipe --collect-data mediapipe webcam_client.py || exit /b 1
 echo OK -^> dist\PocketLens-windows-x64.exe

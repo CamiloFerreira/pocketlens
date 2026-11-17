@@ -6,5 +6,6 @@ cd "$(dirname "$0")"
 .venv/bin/pip install -q pyinstaller
 .venv/bin/pyinstaller --noconfirm --onefile --windowed --name PocketLens-linux-x86_64 \
   --icon assets/icon.ico --add-data "assets:assets" --add-data "../VERSION:." --add-data "../REPO:." \
+  --collect-binaries mediapipe --collect-data mediapipe \
   --exclude-module sounddevice webcam_client.py
 echo "OK -> $(pwd)/dist/PocketLens-linux-x86_64"

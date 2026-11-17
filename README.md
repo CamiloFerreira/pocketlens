@@ -60,6 +60,10 @@ API: `/api/status`, `/api/switch`, `/api/torch`, `/api/mic`, `/api/zoom?v=2`, `/
 | Linux | v4l2loopback (`/dev/video10`, «Android Cam») | PipeWire, fuente «Android Mic» |
 | Windows | «OBS Virtual Camera» (instalar OBS Studio) | VB-Cable («CABLE Output» como micro) |
 
+**Efectos de fondo** (como Teams/Meet): desenfoque con intensidad ajustable, fondos incluidos o tus propias
+imágenes, con detección de personas por IA en el PC (MediaPipe, sin enviar nada a internet). Se activa/desactiva
+en vivo desde la tarjeta «Fondo» o el botón de la barra flotante, y llega a cualquier app a través de la cámara virtual.
+
 Detalles en [client/README.md](client/README.md).
 
 ### Linux sin interfaz (`webcam.sh`)

@@ -40,6 +40,17 @@ IS_WIN = sys.platform.startswith("win")
 IS_LINUX = sys.platform.startswith("linux")
 NO_WINDOW = 0x08000000 if IS_WIN else 0  # CREATE_NO_WINDOW
 
+# PyInstaller (Linux) points LD_LIBRARY_PATH at its bundled libs (old libstdc++). Child processes
+# such as the system adb, pw-cli or pkexec inherit it and fail to start ("GLIBCXX_3.4.31 not found").
+# Our own process already loaded its libs, so restore the user's original value for children.
+if IS_LINUX and getattr(sys, "frozen", False):
+    for _var in ("LD_LIBRARY_PATH", "LD_PRELOAD"):
+        _orig = os.environ.pop(_var + "_ORIG", None)
+        if _orig is not None:
+            os.environ[_var] = _orig
+        else:
+            os.environ.pop(_var, None)
+
 RESOLUTIONS = ["640x480", "1280x720", "1920x1080"]
 FPS_LIST = ["15", "24", "30", "60"]
 BITRATES = ["2", "4", "6", "8", "12", "16"]
@@ -190,7 +201,8 @@ def prepare_loopback(preferred: str | None) -> str | None:
     paths = [d for d, _ in devs]
     dev = preferred if preferred in paths else next((d for d, n in devs if "Android" in n), paths[0])
     try:
-        if not device_caps(dev) & (CAP_VIDEO_OUTPUT | CAP_VIDEO_CAPTURE):
+        # stuck states: no caps at all, or capture-only with no writer left (client killed without cleanup)
+        if not device_caps(dev) & CAP_VIDEO_OUTPUT:
             unstick_loopback(dev)
     except OSError:
         pass
@@ -224,8 +236,12 @@ class PipeWireSource:
         args = ("{ tunnel.mode=source pipe.filename=\"%s\" audio.format=S16LE audio.rate=%d "
                 "audio.channels=1 audio.position=[MONO] stream.props={ node.name=AndroidMic "
                 "node.description=\"Android Mic\" } }" % (self.fifo, AUDIO_RATE))
-        self.proc = subprocess.Popen(["pw-cli", "-m", "load-module", "libpipewire-module-pipe-tunnel", args],
-                                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        cmd = ["pw-cli", "-m", "load-module", "libpipewire-module-pipe-tunnel", args]
+        if shutil.which("setpriv"):
+            # pw-cli gets SIGTERM if the client dies (no orphan "Android Mic" after a crash/kill).
+            # (preexec_fn is not safe here: the process has many threads and could deadlock.)
+            cmd = ["setpriv", "--pdeathsig", "TERM", "--"] + cmd
+        self.proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         for _ in range(40):
             if os.path.exists(self.fifo):
                 break
@@ -330,6 +346,14 @@ class VideoWorker(threading.Thread):
         self.frame_id = 0
         self.error: str | None = None
         self.sock: socket.socket | None = None
+        # background effect, set from the UI at any time: mode None (off), "blur" or "image"
+        self.bg_mode: str | None = None
+        self.bg_image: str | None = None
+        self.bg_strength = 50     # blur strength 1..100
+        self.bg_precise = True    # precise (crop + edge refinement) vs fast segmentation
+        self.bg_error: str | None = None
+        self.person: bool | None = None  # person detected (None while the effect is off)
+        self._bg = None
 
     def stop(self) -> None:
         self.stop_ev.set()
@@ -339,6 +363,23 @@ class VideoWorker(threading.Thread):
                 s.shutdown(socket.SHUT_RDWR)
             except OSError:
                 pass
+
+    def _background(self, rgb: np.ndarray) -> np.ndarray:
+        mode = self.bg_mode
+        if not mode:
+            self.person = None
+            return rgb
+        try:
+            if self._bg is None:
+                import bgfilter
+                self._bg = bgfilter.BackgroundFilter()
+            out = self._bg.process(rgb, mode, self.bg_image, self.bg_strength, self.bg_precise)
+            self.person = self._bg.person
+            return out
+        except Exception as e:  # noqa: BLE001
+            self.bg_error = str(e) or e.__class__.__name__
+            self.bg_mode, self.person = None, None
+            return rgb
 
     def _transform(self, rgb: np.ndarray) -> np.ndarray:
         if self.rotate == 90:
@@ -383,6 +424,8 @@ class VideoWorker(threading.Thread):
                     time.sleep(0.2)
         finally:
             cam.close()
+            if self._bg is not None:
+                self._bg.close()
             if IS_LINUX and self.cam_name:
                 time.sleep(0.1)
                 unstick_loopback(self.cam_name)
@@ -408,7 +451,7 @@ class VideoWorker(threading.Thread):
                         continue
                     for frame in decoded:
                         rgb = frame.reformat(width=self.src_w, height=self.src_h, format="rgb24").to_ndarray()
-                        rgb = self._transform(rgb)
+                        rgb = self._background(self._transform(rgb))
                         cam.send(rgb)
                         self.latest = rgb
                         self.frame_id += 1
