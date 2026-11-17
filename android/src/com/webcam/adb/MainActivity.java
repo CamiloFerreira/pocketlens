@@ -901,7 +901,11 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         tcol.addView(vv);
         head.addView(tcol);
         box.addView(head);
-        TextView notes = text(r.notes == null || r.notes.trim().isEmpty() ? "Mejoras y correcciones." : r.notes.trim(), 13, TEXT_2, false);
+        String plain = r.notes == null ? "" : r.notes.trim()
+                .replaceAll("(?m)^#{1,6}\\s*", "")
+                .replaceAll("(?m)^[-*]\\s+", "•  ")
+                .replace("**", "").replace("`", "");
+        TextView notes = text(plain.isEmpty() ? "Mejoras y correcciones." : plain, 13, TEXT_2, false);
         notes.setLineSpacing(dp(3), 1f);
         ScrollView ns = new ScrollView(this);
         ns.setPadding(0, dp(14), 0, dp(6));
