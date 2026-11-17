@@ -1,0 +1,80 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Build signed APK
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+        run: |
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          KEYSTORE="$RUNNER_TEMP/release.jks" KEY_ALIAS=pocketlens ./build.sh
+          mkdir -p out && cp WebCam.apk "out/PocketLens-$(cat VERSION).apk"
+          rm -f "$RUNNER_TEMP/release.jks"
+      - uses: actions/upload-artifact@v4
+        with: { name: android, path: out/* }
+
+  linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Build binary
+        working-directory: client
+        run: |
+          python -m pip install -q -r requirements.txt pyinstaller
+          pyinstaller --noconfirm --onefile --windowed --name PocketLens-linux-x86_64 \
+            --icon assets/icon.ico --add-data "assets:assets" --add-data "../VERSION:." --add-data "../REPO:." \
+            --exclude-module sounddevice webcam_client.py
+      - uses: actions/upload-artifact@v4
+        with: { name: linux, path: client/dist/PocketLens-linux-x86_64 }
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Build exe
+        working-directory: client
+        run: |
+          python -m pip install -q -r requirements.txt pyinstaller
+          pyinstaller --noconfirm --onefile --windowed --name PocketLens-windows-x64 --icon assets/icon.ico `
+            --add-data "assets:assets" --add-data "../VERSION:." --add-data "../REPO:." webcam_client.py
+      - uses: actions/upload-artifact@v4
+        with: { name: windows, path: client/dist/PocketLens-windows-x64.exe }
+
+  release:
+    needs: [android, linux, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: dist, merge-multiple: true }
+      - name: Release notes
+        run: |
+          V=$(cat VERSION)
+          awk -v v="$V" '$0 ~ "^## \\[?"v {f=1; next} /^## / {f=0} f' CHANGELOG.md > notes.md || true
+          [ -s notes.md ] || echo "PocketLens v$V" > notes.md
+          (cd dist && sha256sum * > SHA256SUMS.txt)
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: PocketLens ${{ github.ref_name }}
+          body_path: notes.md
+          files: dist/*

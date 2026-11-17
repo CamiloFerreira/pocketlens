@@ -1,0 +1,14 @@
+# Android build
+/build/
+/WebCam.apk
+*.idsig
+*.jks
+*.keystore
+*.pass
+# Desktop client
+client/.venv/
+client/build/
+client/dist/
+*.spec
+__pycache__/
+*.pyc

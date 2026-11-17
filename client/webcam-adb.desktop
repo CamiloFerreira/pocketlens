@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=PocketLens
+Comment=Tu teléfono como webcam y micrófono
+Exec=__DIR__/run.sh
+Icon=__DIR__/assets/icon.png
+Terminal=false
+Categories=AudioVideo;Video;

@@ -1,0 +1,5 @@
+av>=12
+pyvirtualcam>=0.11
+numpy
+PySide6-Essentials>=6.6
+sounddevice
