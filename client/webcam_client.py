@@ -157,6 +157,8 @@ QSlider#exp::sub-page:horizontal {{ background: {C['warn']}; }}
 
 QPushButton#update {{ background: rgba(34,197,94,0.14); color: {C['accent']}; border: 1px solid rgba(34,197,94,0.35); border-radius: 13px; padding: 0 12px; font-size: 12px; font-weight: 700; }}
 QPushButton#update:hover {{ background: rgba(34,197,94,0.24); }}
+QPushButton#update[mandatory="true"] {{ background: rgba(239,68,68,0.18); color: #ff6b6b; border: 1px solid rgba(239,68,68,0.5); }}
+QLabel#danger {{ background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.4); border-radius: 8px; padding: 10px; color: #ffb4b4; }}
 QFrame#banner {{ background: rgba(56,189,248,0.10); border: 1px solid rgba(56,189,248,0.35); border-radius: 9px; }}
 QLabel#bannerText {{ color: {C['info']}; font-size: 12px; background: transparent; }}
 QPushButton#bannerBtn {{ background: {C['info']}; color: #04121a; border: 0; border-radius: 7px; padding: 6px 10px; font-weight: 700; font-size: 12px; }}
@@ -952,6 +954,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self._connect()
 
     def _connect(self) -> None:
+        if E.is_mandatory(self.latest):
+            self._show_update_dialog()
+            return
         self._save_cfg()
         usb = self.mode.value() == "usb"
         if usb:
@@ -1161,6 +1166,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.preview.live = v.connected
         if st:
             self.phone_version = st.get("version", "")
+            if self._check_phone_mandatory():
+                return
             self._update_phone_banner()
             self.preview.stats = (f"{'Frontal' if st.get('camera') == 'front' else 'Trasera'}  ·  "
                                   f"{st['width']}×{st['height']}  ·  {v.stat_fps:.0f} fps  ·  {st['kbps'] / 1000:.1f} Mbps")
@@ -1199,7 +1206,17 @@ class MainWindow(QtWidgets.QMainWindow):
         if not rel:
             return
         self.latest = rel
-        if E.is_newer(rel["version"], E.APP_VERSION):
+        mandatory = E.is_mandatory(rel)
+        self.bt_update.setProperty("mandatory", mandatory)
+        self.bt_update.style().unpolish(self.bt_update)
+        self.bt_update.style().polish(self.bt_update)
+        if mandatory:
+            self.bt_update.setText("⚠  Actualización de seguridad obligatoria")
+            self.bt_update.show()
+            if self.video:
+                self._disconnect()
+            QtCore.QTimer.singleShot(0, self._show_update_dialog)
+        elif E.is_newer(rel["version"], E.APP_VERSION):
             self.bt_update.setText(f"⬆  Actualizar a v{rel['version']}")
             self.bt_update.show()
             if self.tray:
@@ -1207,6 +1224,27 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.bt_update.hide()
         self._update_phone_banner()
+
+    def _check_phone_mandatory(self) -> bool:
+        """Disconnects and asks to update if the phone app is below the minimum supported version."""
+        rel = self.latest
+        if not (self.video and self.phone_version and E.is_mandatory(rel, self.phone_version)):
+            return False
+        serial = self.serial
+        self._disconnect()
+        if serial and self.adb and E.pick_asset(rel["assets"], "apk"):
+            r = QtWidgets.QMessageBox.warning(
+                self, "Actualización obligatoria del teléfono",
+                f"La app del teléfono (v{self.phone_version}) tiene un problema de seguridad conocido.\n"
+                f"Hay que actualizarla a v{rel['version']} para usarla. ¿Actualizar ahora por USB?",
+                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
+            if r == QtWidgets.QMessageBox.Yes:
+                self.serial = serial
+                self._update_phone(skip_disconnect=True)
+        else:
+            self._warn(f"La app del teléfono (v{self.phone_version}) tiene un problema de seguridad conocido.\n"
+                       "Ábrela en el teléfono y acepta la actualización obligatoria.")
+        return True
 
     def _update_phone_banner(self) -> None:
         rel = self.latest
@@ -1257,8 +1295,9 @@ class MainWindow(QtWidgets.QMainWindow):
         rel = self.latest
         if not rel:
             return
+        mandatory = E.is_mandatory(rel)
         d = QtWidgets.QDialog(self)
-        d.setWindowTitle("Actualización disponible")
+        d.setWindowTitle("Actualización obligatoria" if mandatory else "Actualización disponible")
         d.setMinimumWidth(520)
         v = QtWidgets.QVBoxLayout(d)
         v.setContentsMargins(22, 20, 22, 18)
@@ -1276,6 +1315,11 @@ class MainWindow(QtWidgets.QMainWindow):
         col.addWidget(sub)
         head.addLayout(col, 1)
         v.addLayout(head)
+        if mandatory:
+            warn = QtWidgets.QLabel("Tu versión tiene un problema de seguridad conocido. PocketLens no se puede "
+                                    "usar hasta que actualices.", objectName="danger")
+            warn.setWordWrap(True)
+            v.addWidget(warn)
         notes = QtWidgets.QTextBrowser()
         notes.setOpenExternalLinks(True)
         notes.setMarkdown(rel["notes"] or "Mejoras y correcciones.")
@@ -1289,7 +1333,7 @@ class MainWindow(QtWidgets.QMainWindow):
             v.addWidget(hint)
         row = QtWidgets.QHBoxLayout()
         row.addStretch(1)
-        later = QtWidgets.QPushButton("Más tarde", objectName="ghost")
+        later = QtWidgets.QPushButton("Salir" if mandatory else "Más tarde", objectName="ghost")
         later.clicked.connect(d.reject)
         go = QtWidgets.QPushButton("Actualizar y reiniciar" if can else "Abrir descargas", objectName="connect")
         go.clicked.connect(d.accept)
@@ -1297,9 +1341,13 @@ class MainWindow(QtWidgets.QMainWindow):
         row.addWidget(go)
         v.addLayout(row)
         if d.exec() != QtWidgets.QDialog.Accepted:
+            if mandatory:
+                self._quit()
             return
         if not can:
             QtGui.QDesktopServices.openUrl(QtCore.QUrl(rel["page"] or E.RELEASES_URL))
+            if mandatory:
+                self._quit()
             return
 
         def done(res):
@@ -1312,12 +1360,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self._run_task(lambda prog: E.self_update(rel["assets"], prog), "Actualizando PocketLens",
                        f"Descargando v{rel['version']}…", done)
 
-    def _update_phone(self) -> None:
+    def _update_phone(self, skip_disconnect: bool = False) -> None:
         rel, serial = self.latest, self.serial
         url = E.pick_asset(rel["assets"], "apk") if rel else None
         if not (url and serial and self.adb):
             return
-        self._disconnect()
+        if not skip_disconnect:
+            self._disconnect()
         self.serial = serial
 
         def done(res, allow=False):

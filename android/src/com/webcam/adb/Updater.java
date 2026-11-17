@@ -28,11 +28,15 @@ import java.nio.charset.StandardCharsets;
 /** Self-update from GitHub Releases (latest release, first *.apk asset). */
 final class Updater {
     static final String ACTION_INSTALL_STATUS = "com.webcam.adb.INSTALL_STATUS";
-    private static final long CHECK_INTERVAL_MS = 6 * 3600 * 1000L;
+    private static final long CHECK_INTERVAL_MS = 3600 * 1000L;
+    private static final java.util.regex.Pattern MIN_RE =
+            java.util.regex.Pattern.compile("<!--\\s*min-version:\\s*([0-9]+(?:\\.[0-9]+){0,2})\\s*-->");
     private static final Handler MAIN = new Handler(Looper.getMainLooper());
 
     static final class Release {
-        String version, apkUrl, notes, page;
+        String version, apkUrl, notes, page, minVersion = "0.0.0";
+        /** Installed version is below the minimum supported one (security fix): update is mandatory. */
+        boolean mandatory() { return isNewer(minVersion, BuildInfo.VERSION); }
         long size;
     }
 
@@ -83,7 +87,10 @@ final class Updater {
         JSONObject j = new JSONObject(new String(bos.toByteArray(), StandardCharsets.UTF_8));
         Release r = new Release();
         r.version = j.getString("tag_name").replaceFirst("^[vV]", "");
-        r.notes = j.optString("body", "");
+        String body = j.optString("body", "");
+        java.util.regex.Matcher m = MIN_RE.matcher(body);
+        if (m.find()) r.minVersion = m.group(1);
+        r.notes = MIN_RE.matcher(body).replaceAll("").trim();
         r.page = j.optString("html_url", "");
         JSONArray assets = j.optJSONArray("assets");
         if (assets != null) {
@@ -103,7 +110,9 @@ final class Updater {
     static void check(Context ctx, boolean force, CheckCallback cb) {
         SharedPreferences p = prefs(ctx);
         long now = System.currentTimeMillis();
-        if (!force && now - p.getLong("last", 0) < CHECK_INTERVAL_MS) {
+        // Cache is only valid for the build that fetched it (re-check right after an update).
+        boolean sameBuild = BuildInfo.VERSION.equals(p.getString("for", ""));
+        if (!force && sameBuild && now - p.getLong("last", 0) < CHECK_INTERVAL_MS) {
             String v = p.getString("version", null);
             if (v != null && isNewer(v, BuildInfo.VERSION) && p.getString("url", null) != null) {
                 Release r = new Release();
@@ -111,6 +120,7 @@ final class Updater {
                 r.apkUrl = p.getString("url", null);
                 r.notes = p.getString("notes", "");
                 r.size = p.getLong("size", 0);
+                r.minVersion = p.getString("min", "0.0.0");
                 cb.done(r, null);
             } else {
                 cb.done(null, null);
@@ -121,13 +131,19 @@ final class Updater {
             try {
                 Release r = fetchLatest();
                 p.edit().putLong("last", now).putString("version", r.version).putString("url", r.apkUrl)
-                        .putString("notes", r.notes).putLong("size", r.size).apply();
+                        .putString("notes", r.notes).putLong("size", r.size).putString("min", r.minVersion)
+                        .putString("for", BuildInfo.VERSION).apply();
                 boolean newer = r.apkUrl != null && isNewer(r.version, BuildInfo.VERSION);
                 MAIN.post(() -> cb.done(newer ? r : null, null));
             } catch (Exception e) {
                 MAIN.post(() -> cb.done(null, e.getMessage()));
             }
         }, "update-check").start();
+    }
+
+    /** Last known release says this build is below the minimum supported version. */
+    static boolean isBlocked(Context c) {
+        return isNewer(prefs(c).getString("min", "0.0.0"), BuildInfo.VERSION);
     }
 
     /** True if the user still has to allow "install unknown apps" for us (settings screen is opened). */

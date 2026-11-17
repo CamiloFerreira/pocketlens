@@ -86,7 +86,15 @@ client\build-windows.bat    # .exe Windows
 ## Publicar una versión
 
 1. Añade la sección `## [X.Y.Z]` en [CHANGELOG.md](CHANGELOG.md).
-2. `./scripts/release.sh X.Y.Z`
+2. `./scripts/release.sh X.Y.Z` — o `./scripts/release.sh X.Y.Z --mandatory` si corrige una vulnerabilidad.
+
+**Actualizaciones obligatorias:** con `--mandatory`, X.Y.Z pasa a ser la versión mínima soportada
+(`MIN_VERSION`, publicada en las notas de cada release como `<!-- min-version: X.Y.Z -->`).
+Cualquier versión anterior:
+- **Android:** desactiva cámara y micrófono y muestra un diálogo que no se puede cerrar (Actualizar / Salir).
+  El bloqueo se recuerda aunque el teléfono quede sin internet.
+- **Escritorio:** no permite conectar hasta actualizar, y se niega a usar un teléfono con app por debajo
+  del mínimo (ofrece actualizarla por USB).
 
 El script compila y firma el APK en tu máquina, crea el release con las notas del changelog y
 GitHub Actions le añade los binarios de Linux y Windows. Las apps instaladas lo detectan y ofrecen actualizar.

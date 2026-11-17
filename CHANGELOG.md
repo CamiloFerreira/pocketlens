@@ -8,6 +8,15 @@
   para que se cargue al arrancar (ya no pide contraseña al conectar).
 - Las instalaciones desde .deb se actualizan descargando el nuevo paquete (pide contraseña una vez).
 
+### Seguridad
+- **Actualizaciones obligatorias**: un release puede fijar una versión mínima soportada
+  (`./scripts/release.sh X.Y.Z --mandatory`). Las versiones anteriores quedan bloqueadas:
+  la app Android desactiva cámara y micrófono y solo permite actualizar o salir; el cliente
+  de escritorio no conecta y exige actualizar también la app del teléfono.
+
+### Escritorio
+- Corregido: el interruptor «Espejo» (y «Micrófono») saltaba a la esquina de la tarjeta al pulsarlo.
+
 ### Android
 - Las notas de la actualización se muestran como texto limpio.
 - La comprobación de actualizaciones ignora cachés.

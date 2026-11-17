@@ -202,6 +202,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     }
 
     private void startCamService() {
+        if (Updater.isBlocked(this)) return;
         Intent i = new Intent(this, CamService.class);
         if (Build.VERSION.SDK_INT >= 26) startForegroundService(i); else startService(i);
     }
@@ -873,15 +874,30 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     // Updates
     // =====================================================================
 
+    private Dialog updateDialog;
+
     private void showUpdateChip(Updater.Release r) {
         pendingUpdate = r;
         if (r == null) { tvUpdate.setVisibility(View.GONE); return; }
-        tvUpdate.setText("Actualizar a v" + r.version);
+        tvUpdate.setText(r.mandatory() ? "Actualización obligatoria" : "Actualizar a v" + r.version);
+        tvUpdate.setBackground(ripple(rounded(r.mandatory() ? LIVE : ACCENT, 16, 0), false));
+        tvUpdate.setTextColor(r.mandatory() ? Color.WHITE : Color.BLACK);
         tvUpdate.setVisibility(View.VISIBLE);
+        if (r.mandatory()) {
+            detachPreview();
+            stopService(new Intent(this, CamService.class));
+            if (updateDialog == null || !updateDialog.isShowing()) showUpdateDialog(r);
+        }
     }
 
     private void showUpdateDialog(Updater.Release r) {
+        final boolean mandatory = r.mandatory();
         Dialog d = new Dialog(this, android.R.style.Theme_Material_Dialog_NoActionBar);
+        updateDialog = d;
+        if (mandatory) {
+            d.setCancelable(false);
+            d.setCanceledOnTouchOutside(false);
+        }
         LinearLayout box = new LinearLayout(this);
         box.setOrientation(LinearLayout.VERTICAL);
         box.setPadding(dp(24), dp(18), dp(24), dp(16));
@@ -894,13 +910,23 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         LinearLayout tcol = new LinearLayout(this);
         tcol.setOrientation(LinearLayout.VERTICAL);
         tcol.setPadding(dp(12), 0, 0, 0);
-        tcol.addView(text("Nueva versión disponible", 18, TEXT, true));
+        tcol.addView(text(mandatory ? "Actualización de seguridad obligatoria" : "Nueva versión disponible", 18,
+                mandatory ? 0xFFFF6B6B : TEXT, true));
         TextView vv = text("v" + BuildInfo.VERSION + "  →  v" + r.version
                 + (r.size > 0 ? String.format(Locale.US, "  ·  %.1f MB", r.size / 1048576f) : ""), 12, TEXT_2, false);
         vv.setPadding(0, dp(4), 0, 0);
         tcol.addView(vv);
         head.addView(tcol);
         box.addView(head);
+        if (mandatory) {
+            TextView warn = text("Tu versión tiene un problema de seguridad conocido. La cámara y el micrófono "
+                    + "quedan desactivados hasta que actualices.", 13, 0xFFFFB4B4, false);
+            warn.setPadding(dp(12), dp(10), dp(12), dp(10));
+            warn.setBackground(rounded(0x26EF4444, 10, 0x66EF4444));
+            LinearLayout.LayoutParams wl = new LinearLayout.LayoutParams(MATCH, WRAP);
+            wl.setMargins(0, dp(14), 0, 0);
+            box.addView(warn, wl);
+        }
         String plain = r.notes == null ? "" : r.notes.trim()
                 .replaceAll("(?m)^#{1,6}\\s*", "")
                 .replaceAll("(?m)^[-*]\\s+", "•  ")
@@ -919,10 +945,16 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         LinearLayout buttons = new LinearLayout(this);
         buttons.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
         buttons.setPadding(0, dp(12), 0, 0);
-        TextView later = text("Más tarde", 14, TEXT_2, true);
+        TextView later = text(mandatory ? "Salir" : "Más tarde", 14, TEXT_2, true);
         later.setPadding(dp(18), dp(11), dp(18), dp(11));
         later.setBackground(ripple(new ColorDrawable(Color.TRANSPARENT), false));
-        later.setOnClickListener(v -> d.dismiss());
+        later.setOnClickListener(v -> {
+            d.dismiss();
+            if (mandatory) {
+                stopService(new Intent(this, CamService.class));
+                finishAndRemoveTask();
+            }
+        });
         TextView go = text("Actualizar", 14, Color.BLACK, true);
         go.setPadding(dp(24), dp(11), dp(24), dp(11));
         go.setBackground(ripple(rounded(ACCENT, 12, 0), false));
@@ -949,7 +981,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
                         Toast.makeText(MainActivity.this, "Error al descargar: " + error, Toast.LENGTH_LONG).show();
                     } else {
                         go.setText("Instalando…");
-                        d.dismiss();
+                        if (!mandatory) d.dismiss();
                     }
                 }
             });
@@ -989,6 +1021,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         tvWeb.setText(ip != null ? "http://" + ip + ":" + CamService.PORT_HTTP : "—");
         if (s == null) {
             emptyState.setVisibility(View.VISIBLE);
+            if (Updater.isBlocked(this)) tvEmpty.setText("Cámara desactivada: hay una actualización de seguridad obligatoria.");
             return;
         }
         Size size = s.curSize;

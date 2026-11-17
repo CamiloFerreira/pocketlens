@@ -572,15 +572,31 @@ def _http_get(url: str, timeout: float = 10):
         return urllib.request.urlopen(req, timeout=timeout)
 
 
+_MIN_RE = None
+
+
 def latest_release() -> dict | None:
-    """{'version', 'notes', 'page', 'assets': {name: url}} or None on error."""
+    """{'version', 'min_version', 'notes', 'page', 'assets': {name: url}} or None on error.
+
+    A release marks the minimum supported version (security fixes) with an HTML comment
+    in its notes: <!-- min-version: X.Y.Z -->. Anything older must update before use."""
+    import re
     try:
         with _http_get(f"https://api.github.com/repos/{REPO}/releases/latest") as r:
             j = json.loads(r.read().decode("utf-8"))
-        return {"version": j["tag_name"].lstrip("vV"), "notes": j.get("body") or "", "page": j.get("html_url", ""),
+        body = j.get("body") or ""
+        m = re.search(r"<!--\s*min-version:\s*([0-9]+(?:\.[0-9]+){0,2})\s*-->", body)
+        notes = re.sub(r"<!--\s*min-version:[^>]*-->", "", body).strip()
+        return {"version": j["tag_name"].lstrip("vV"), "min_version": m.group(1) if m else "0.0.0",
+                "notes": notes, "page": j.get("html_url", ""),
                 "assets": {a["name"]: a["browser_download_url"] for a in j.get("assets", [])}}
     except Exception:  # noqa: BLE001
         return None
+
+
+def is_mandatory(rel: dict | None, version: str = APP_VERSION) -> bool:
+    """True if `version` is below the release's minimum supported version."""
+    return bool(rel) and bool(version) and is_newer(rel.get("min_version", "0.0.0"), version)
 
 
 def pick_asset(assets: dict, kind: str) -> str | None:

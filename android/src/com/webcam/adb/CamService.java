@@ -169,6 +169,12 @@ public class CamService extends Service {
             return START_NOT_STICKY;
         }
         startForegroundCompat();
+        if (Updater.isBlocked(this)) {
+            // Security: a mandatory update is pending; never expose camera/mic from a vulnerable build.
+            status = "Actualización obligatoria pendiente";
+            stopSelf();
+            return START_NOT_STICKY;
+        }
         if (!running) {
             running = true;
             startServer(PORT_VIDEO, this::onVideoClient);
