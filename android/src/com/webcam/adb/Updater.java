@@ -67,6 +67,8 @@ final class Updater {
         HttpURLConnection c = (HttpURLConnection) new URL(
                 "https://api.github.com/repos/" + BuildInfo.REPO + "/releases/latest").openConnection();
         c.setRequestProperty("Accept", "application/vnd.github+json");
+        c.setRequestProperty("Cache-Control", "no-cache");
+        c.setUseCaches(false);
         c.setRequestProperty("User-Agent", "PocketLens-Android/" + BuildInfo.VERSION);
         c.setConnectTimeout(8000);
         c.setReadTimeout(8000);

@@ -564,7 +564,8 @@ def is_newer(candidate: str, current: str) -> bool:
 
 def _http_get(url: str, timeout: float = 10):
     req = urllib.request.Request(url, headers={"User-Agent": f"PocketLens-Desktop/{APP_VERSION}",
-                                               "Accept": "application/vnd.github+json"})
+                                               "Accept": "application/vnd.github+json",
+                                               "Cache-Control": "no-cache"})
     try:  # direct first (ignores debugging proxies like Burp in http(s)_proxy)
         return _opener.open(req, timeout=timeout)
     except Exception:  # noqa: BLE001
